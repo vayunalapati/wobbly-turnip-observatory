@@ -1,0 +1,38 @@
+[
+  {
+    "file": "photos/city.jpg",
+    "title": "Mexico City Palacio de bellas artes.jpg",
+    "author": "Jeses",
+    "license": "CC BY-SA 2.5",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Mexico_City_Palacio_de_bellas_artes.jpg",
+    "changes": "Displayed with CSS cropping; image file otherwise unchanged."
+  },
+  {
+    "file": "photos/balloons.jpg",
+    "title": "Globos en Teotihuacán Nov 2021 - 2.jpg",
+    "author": "Jorge Castro Ruso",
+    "license": "CC BY-SA 2.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Globos_en_Teotihuac%C3%A1n_Nov_2021_-_2.jpg",
+    "changes": "Displayed with CSS cropping; image file otherwise unchanged."
+  },
+  {
+    "file": "photos/museum.jpg",
+    "title": "National Museum - Zentraler Innenhof 2.jpg",
+    "author": "Wolfgang Sauber",
+    "license": "CC BY-SA 3.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:National_Museum_-_Zentraler_Innenhof_2.jpg",
+    "changes": "Displayed with CSS cropping; image file otherwise unchanged."
+  },
+  {
+    "file": "photos/frida.jpg",
+    "title": "One of the patios in the courtyard of Museo Frida Kahlo.jpg",
+    "author": "Thelmadatter",
+    "license": "Public domain",
+    "license_url": "",
+    "source": "https://commons.wikimedia.org/wiki/File:One_of_the_patios_in_the_courtyard_of_Museo_Frida_Kahlo.jpg",
+    "changes": "Displayed with CSS cropping; image file otherwise unchanged."
+  }
+]
