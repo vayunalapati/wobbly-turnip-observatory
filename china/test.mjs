@@ -24,14 +24,16 @@ for(const day of trip.days){
  }
 }
 const hk=trip.days.find(d=>d.id==='14');
-assert.deepEqual(hk.points.filter(p=>p.choice==='city').map(p=>p.key),['peak','kowloon','tst']);
+assert.deepEqual(hk.points.filter(p=>p.choice==='city').map(p=>p.key),['central','sheung','peak','kowloon','tst','ferry']);
 assert.deepEqual(hk.points.filter(p=>p.choice==='hike').map(p=>p.key),['dragon','sheko']);
+assert.equal(trip.days[0].points.length,0,'night arrival must not schedule sightseeing or invent a hotel transfer');
+assert(trip.days[0].intro.includes('at night'));
 assert.equal(trip.days.at(-1).points.length,0,'unknown hotel and airport must not be invented');
 for(const leg of trip.legs){assert(trip.hubs.some(h=>h.key===leg.from));assert(trip.hubs.some(h=>h.key===leg.to));assert(['rail','car','flight'].includes(leg.mode));}
 assert(trip.legs.find(l=>l.to==='suzhou').label.includes('return'));
 assert(trip.legs.find(l=>l.mode==='flight').label.includes('unconfirmed'));
 for(const photo of JSON.parse(read('photo-credits.json'))){assert(photo.source.startsWith('https://commons.wikimedia.org/'));assert(photo.license_url);assert(html.includes(photo.source));}
-console.log('China checks passed: 12 days, 11 nights, 36 pins, mutually exclusive HK routes, valid transport connections and assets.');
+console.log('China checks passed: 12 days, 11 nights, 35 pins, night arrival, mutually exclusive HK routes, valid transport connections and assets.');
 // A CDN failure must leave usable content and disable only map controls.
 const elements=new Map();
 const locate={hidden:false};

@@ -36,7 +36,7 @@
   }
   function fit() {
     if (activePoints.length) map.fitBounds(activePoints.map(p => [p.latitude,p.longitude]),{padding:[45,45],maxZoom:15,animate:false});
-    else map.setView([31.2304,121.4737],11,{animate:false});
+    else map.setView(selectedDay()?.id==='13'?[22.282,114.16]:[31.2304,121.4737],11,{animate:false});
   }
   function popup(point) {
     if (point.hub) return `${point.photo ? `<img class="popup-photo" src="${escape(point.photo)}" alt="">` : ''}<div class="trip-popup"><span class="label">THE JOURNEY</span><h3>${escape(point.title)}</h3><p>${escape(point.subtitle)}</p><a href="#day-${point.day}">Open this day ↗</a></div>`;
@@ -64,7 +64,7 @@
     dayButton.setAttribute('aria-pressed',String(!wholeTrip));
     allButton.setAttribute('aria-pressed',String(wholeTrip));
     document.getElementById('map-title').textContent = wholeTrip ? 'The whole trip' : day.title;
-    status.textContent = wholeTrip ? '7 places · Nov 13–24 · rail, car & flight' : activePoints.length ? `${activePoints.length} stops · Nov ${day.id}${day.id === '14' ? ' · '+(window.hkChoice==='city'?'City route':'Hiking route') : ''}` : 'Flight & hotel details needed · no departure route plotted';
+    status.textContent = wholeTrip ? '7 places · Nov 13–24 · rail, car & flight' : activePoints.length ? `${activePoints.length} stops · Nov ${day.id}${day.id === '14' ? ' · '+(window.hkChoice==='city'?'City route':'Hiking route') : ''}` : day.id==='13' ? 'Night arrival · airport & hotel details needed; no arrival route plotted' : 'Flight & hotel details needed · no departure route plotted';
     playButton.disabled = !activePoints.length;
     document.querySelector('.map-day-legend').hidden = !wholeTrip;
     document.getElementById('map-explainer').textContent = wholeTrip ? 'Dashed lines show planned connections, not actual rail or road routes. Services are unconfirmed. Click a destination to open its day. Suzhou returns to Shanghai.' : 'Numbered pins show visit order. Dashed lines are schematic, not walking, cycling, road, or trail routes. Hotel and airport locations await booking details.';
