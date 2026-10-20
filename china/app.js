@@ -30,3 +30,9 @@ chooseHongKong('city');
 window.addEventListener('hashchange', showDay);
 showDay();
 document.querySelector('#print-button').addEventListener('click', () => window.print());
+
+// Keep the chosen day when jumping to the map on a phone.
+document.querySelector('.mobile-map-link').addEventListener('click', event => {
+  event.preventDefault();
+  document.getElementById('trip-map').scrollIntoView({block:'start',behavior:'instant'});
+});
