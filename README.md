@@ -24,3 +24,7 @@ Static HTML and JSON, with no build step or backend. GitHub Pages publishes the 
 The `mexico-city/` folder contains the November 4–9, 2026 trip plan, including a sunrise Teotihuacán balloon flight on Friday, November 6. Map links, official booking links, and a print view are included. Reservations remain pending. Run its small self-check with `node mexico-city/test.mjs`.
 
 Mexico City restaurant coverage: all 266 reviews across 11 Infatuation directory pages, searched on Google October 18, 2026. 261 listings have a confident branch match plus a rating and review count; five unresolved entries remain flagged. Numeric Infatuation scores are not published for this directory and remain null. Google matching evidence and timestamps are included in `infatuation-mexico-city-google-restaurants.json`.
+
+## China itinerary
+
+[China · November 13–24, 2026](https://vayunalapati.github.io/wobbly-turnip-observatory/china/) adds a 12-day itinerary with a whole-trip transport map, day-by-day stop maps, and a selectable Hong Kong city/hiking route. See [the China page notes](china/README.md) for data, map assumptions, and checks.

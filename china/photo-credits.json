@@ -1,0 +1,47 @@
+[
+  {
+    "key": "hong-kong",
+    "title": "Hong Kong Harbour Night 2019-06-11.jpg",
+    "artist": "Benh LIEU SONG (Flickr)",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Hong_Kong_Harbour_Night_2019-06-11.jpg",
+    "file": "photos/hong-kong.jpg"
+  },
+  {
+    "key": "yangshuo",
+    "title": "1 aerial yangshuo panorama 2017.jpg",
+    "artist": "Chensiyuan",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:1_aerial_yangshuo_panorama_2017.jpg",
+    "file": "photos/yangshuo.jpg"
+  },
+  {
+    "key": "shanghai",
+    "title": "Pudong Shanghai November 2017 panorama.jpg",
+    "artist": "King of Hearts",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Pudong_Shanghai_November_2017_panorama.jpg",
+    "file": "photos/shanghai.jpg"
+  },
+  {
+    "key": "suzhou",
+    "title": "Canal dans le centre ancien de Suzhou (16999191119).jpg",
+    "artist": "Nicolas Vollmer from Paris [France]",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Canal_dans_le_centre_ancien_de_Suzhou_(16999191119).jpg",
+    "file": "photos/suzhou.jpg"
+  },
+  {
+    "key": "zhangjiajie",
+    "title": "1 zhangjiajie huangshizhai wulingyuan panorama 2012.jpg",
+    "artist": "chensiyuan",
+    "license": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg",
+    "file": "photos/zhangjiajie.jpg"
+  }
+]
