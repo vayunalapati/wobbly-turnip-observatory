@@ -27,4 +27,4 @@ Mexico City restaurant coverage: all 266 reviews across 11 Infatuation directory
 
 ## China itinerary
 
-[China · November 13–24, 2026](https://vayunalapati.github.io/wobbly-turnip-observatory/china/) adds a 12-day itinerary with a whole-trip transport map, day-by-day stop maps, and a selectable Hong Kong city/hiking route. See [the China page notes](china/README.md) for data, map assumptions, and checks.
+[China · November 13–24, 2026](https://vayunalapati.github.io/wobbly-turnip-observatory/china/) adds a 12-day itinerary with a whole-trip transport map, day-by-day stop maps, two full Hong Kong days, and three nights in the same Wulingyuan hotel. See [the China page notes](china/README.md) for data, map assumptions, and checks.

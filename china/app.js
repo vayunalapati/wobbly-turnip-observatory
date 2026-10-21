@@ -1,38 +1,55 @@
 const panels = [...document.querySelectorAll('.day-panel')];
-const links = [...document.querySelectorAll('.day-link')];
+const dayLinks = [...document.querySelectorAll('.day-link')];
 const overview = document.getElementById('route-overview');
-window.hkChoice = 'city';
-window.chinaDayPoints = day => day.points.filter(point => !point.choice || point.choice === window.hkChoice);
+const rail = document.querySelector('.day-nav');
 function showDay() {
   const selected = panels.find(panel => location.hash === '#' + panel.id);
   overview.hidden = Boolean(selected);
   panels.forEach(panel => { panel.hidden = panel !== selected; });
-  links.forEach(link => {
-    if (selected && link.hash === '#' + selected.id) link.setAttribute('aria-current', 'true');
-    else link.removeAttribute('aria-current');
+  dayLinks.forEach(link => {
+    if (selected && link.hash === '#' + selected.id) {
+      link.setAttribute('aria-current', 'date');
+      rail.scrollTo({left:link.offsetLeft - rail.clientWidth / 2 + link.clientWidth / 2,behavior:'instant'});
+    } else link.removeAttribute('aria-current');
   });
   document.querySelectorAll('[data-view]').forEach(link => {
     if (link.dataset.view === (selected ? 'days' : 'route')) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
   });
-  if (selected) selected.scrollIntoView({block:'start'});
-}
-function chooseHongKong(choice) {
-  window.hkChoice = choice;
-  document.querySelectorAll('[data-branch]').forEach(row => { row.hidden = row.dataset.branch !== choice; });
-  document.querySelectorAll('[data-choice]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.choice === choice)));
-  document.getElementById('choice-status').textContent = choice === 'city' ? 'Showing the city route' : 'Showing Dragon’s Back & Shek O';
-  window.dispatchEvent(new Event('choicechange'));
+  document.getElementById('day-nav-hint').textContent = selected ? 'November ' + selected.id.replace('day-','') + ' · ' + selected.querySelector('h2').textContent : 'Choose a day to explore';
+  if (!selected) rail.scrollTo({left:0,behavior:'instant'});
+  if (selected) selected.scrollIntoView({block:'start',behavior:'instant'});
 }
 document.documentElement.classList.add('js');
-document.querySelectorAll('[data-choice]').forEach(button => button.addEventListener('click', () => chooseHongKong(button.dataset.choice)));
-chooseHongKong('city');
 window.addEventListener('hashchange', showDay);
 showDay();
-document.querySelector('#print-button').addEventListener('click', () => window.print());
-
-// Keep the chosen day when jumping to the map on a phone.
+document.getElementById('print-button').addEventListener('click', () => window.print());
 document.querySelector('.mobile-map-link').addEventListener('click', event => {
   event.preventDefault();
   document.getElementById('trip-map').scrollIntoView({block:'start',behavior:'instant'});
+});
+const shareButton = document.getElementById('share-button');
+const shareStatus = document.getElementById('share-status');
+let shareTimer;
+shareButton.addEventListener('click', async () => {
+  // Use the published URL even when this page is being previewed locally.
+  const canonical = document.querySelector('link[rel="canonical"]').href;
+  const hash = panels.some(panel => location.hash === '#' + panel.id) ? location.hash : '';
+  const url = canonical + hash;
+  clearTimeout(shareTimer);
+  try {
+    await navigator.clipboard.writeText(url);
+    shareButton.textContent = 'Link copied ✓';
+    shareStatus.textContent = hash ? 'Day link copied. Ready to share.' : 'Trip link copied. Ready to share.';
+    shareStatus.classList.add('is-visible');
+    shareTimer = setTimeout(() => { shareButton.textContent = 'Copy link ↗'; shareStatus.classList.remove('is-visible'); },2500);
+  } catch {
+    const field = document.getElementById('share-url');
+    document.getElementById('share-fallback').hidden = false;
+    field.value = url; field.focus(); field.select();
+  }
+});
+document.getElementById('close-share').addEventListener('click', () => {
+  document.getElementById('share-fallback').hidden = true;
+  shareButton.focus();
 });

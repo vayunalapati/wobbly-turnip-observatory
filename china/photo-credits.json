@@ -27,15 +27,6 @@
     "file": "photos/shanghai.jpg"
   },
   {
-    "key": "suzhou",
-    "title": "Canal dans le centre ancien de Suzhou (16999191119).jpg",
-    "artist": "Nicolas Vollmer from Paris [France]",
-    "license": "CC BY 2.0",
-    "license_url": "https://creativecommons.org/licenses/by/2.0",
-    "source": "https://commons.wikimedia.org/wiki/File:Canal_dans_le_centre_ancien_de_Suzhou_(16999191119).jpg",
-    "file": "photos/suzhou.jpg"
-  },
-  {
     "key": "zhangjiajie",
     "title": "1 zhangjiajie huangshizhai wulingyuan panorama 2012.jpg",
     "artist": "chensiyuan",
@@ -43,5 +34,23 @@
     "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
     "source": "https://commons.wikimedia.org/wiki/File:1_zhangjiajie_huangshizhai_wulingyuan_panorama_2012.jpg",
     "file": "photos/zhangjiajie.jpg"
+  },
+  {
+    "key": "hike",
+    "title": "Shek-O from Dragon's Back (3205433879).jpg",
+    "artist": "DearEdward from New York, NY, USA",
+    "license": "CC BY 2.0",
+    "license_url": "https://creativecommons.org/licenses/by/2.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Shek-O_from_Dragon%27s_Back_(3205433879).jpg",
+    "file": "photos/hike.jpg"
+  },
+  {
+    "key": "tianmen",
+    "title": "Tianmen Cave - panoramio.jpg",
+    "artist": "Raki_Man",
+    "license": "CC BY 3.0",
+    "license_url": "https://creativecommons.org/licenses/by/3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Tianmen_Cave_-_panoramio.jpg",
+    "file": "photos/tianmen.jpg"
   }
 ]

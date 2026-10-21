@@ -47,7 +47,7 @@
     const row = document.getElementById(point.row_id);
     if (row) { row.classList.add('map-selected'); if (scroll) row.scrollIntoView({block:'center',behavior:reducedMotion?'instant':'smooth'}); }
     const marker = markers.get(point.id);
-    if (marker) { map.setView([point.latitude,point.longitude],Math.max(map.getZoom(),14),{animate:!reducedMotion}); marker.openPopup(); }
+    if (marker) { map.setView([point.latitude,point.longitude],Math.max(map.getZoom(),14),{animate:false}); marker.openPopup(); }
   }
   function focusPoint(point, fromMap = false) {
     stopPreview(); wholeTrip = false; pendingPoint = {point,fromMap};
@@ -58,37 +58,39 @@
     stopPreview(); tileError = false;
     const day = selectedDay();
     wholeTrip = wholeTrip || !day;
-    activePoints = wholeTrip ? trip.hubs.map((p,i) => ({...p,hub:true,id:'hub-'+p.key,number:i+1,color:'#3d6654'})) : window.chinaDayPoints(day).map(p => ({...p,color:day.color}));
+    activePoints = wholeTrip ? trip.hubs.filter(p => !p.transit).map((p,i) => ({...p,hub:true,id:'hub-'+p.key,number:i+1,color:'#3d6654'})) : day.points.map(p => ({...p,color:day.color}));
     layers.clearLayers(); markers = new Map();
     dayButton.disabled = !day;
     dayButton.setAttribute('aria-pressed',String(!wholeTrip));
     allButton.setAttribute('aria-pressed',String(wholeTrip));
-    document.getElementById('map-title').textContent = wholeTrip ? 'The whole trip' : day.title;
-    status.textContent = wholeTrip ? '7 places · Nov 13–24 · rail, car & flight' : activePoints.length ? `${activePoints.length} stops · Nov ${day.id}${day.id === '14' ? ' · '+(window.hkChoice==='city'?'City route':'Hiking route') : ''}` : day.id==='13' ? 'Night arrival · airport & hotel details needed; no arrival route plotted' : 'Flight & hotel details needed · no departure route plotted';
+    document.getElementById('map-title').textContent = wholeTrip ? 'Follow the journey.' : day.title;
+    status.textContent = wholeTrip ? `${trip.stays.length} stays · Nov 13–24 · 11 nights` : activePoints.length ? `${activePoints.length} stops · Nov ${day.id}` : day.id==='13' ? 'Night arrival · airport & hotel details needed; no arrival route plotted' : 'Flight & hotel details needed · no departure route plotted';
     playButton.disabled = !activePoints.length;
     document.querySelector('.map-day-legend').hidden = !wholeTrip;
-    document.getElementById('map-explainer').textContent = wholeTrip ? 'Dashed lines show planned connections, not actual rail or road routes. Services are unconfirmed. Click a destination to open its day. Suzhou returns to Shanghai.' : 'Numbered pins show visit order. Dashed lines are schematic, not walking, cycling, road, or trail routes. Hotel and airport locations await booking details.';
+    document.getElementById('map-explainer').textContent = wholeTrip ? 'Dashed lines show planned connections, not actual rail or road routes. Services are unconfirmed. Select a destination to explore its days. Small dots mark transfer points.' : 'Numbered pins show visit order. Dashed lines are schematic, not walking, cycling, road, or trail routes. Hotel and airport locations await booking details.';
     if (wholeTrip) {
       for (const leg of trip.legs) {
         const a = trip.hubs.find(h => h.key===leg.from), b = trip.hubs.find(h => h.key===leg.to);
         L.polyline([[a.latitude,a.longitude],[b.latitude,b.longitude]],{color:'#fff',weight:8,opacity:.85}).addTo(layers);
         L.polyline([[a.latitude,a.longitude],[b.latitude,b.longitude]],{color:modeColors[leg.mode],weight:4,opacity:1,dashArray:leg.mode==='flight'?'3 10':'7 7'}).bindTooltip(escape(leg.date+' · '+leg.label),{sticky:true}).addTo(layers);
       }
+      for (const hub of trip.hubs.filter(hub => hub.transit)) {
+        L.circleMarker([hub.latitude,hub.longitude],{radius:4,color:'#fff',weight:2,fillColor:'#7b8177',fillOpacity:1}).bindTooltip(escape(hub.title+' · transfer point')).addTo(layers);
+      }
     } else if (activePoints.length > 1) {
       L.polyline(activePoints.map(p => [p.latitude,p.longitude]),{color:day.color,weight:3,opacity:.7,dashArray:'5 8'}).addTo(layers);
     }
     const groups = new Map();
     activePoints.forEach(p => {const key=p.latitude+','+p.longitude; if (!groups.has(key)) groups.set(key,[]); groups.get(key).push(p);});
-    let number = 0;
     for (const visits of groups.values()) {
       const point = visits[0];
-      const label = visits.length>1 ? '↻' : ++number;
-      const icon = L.divIcon({className:'trip-pin-wrap',html:`<div class="trip-pin ${point.photo?'photo-pin':''}" style="--pin-color:${point.color}">${point.photo?`<img src="${escape(point.photo)}" alt="">`:''}<span>${label}</span></div>`,iconSize:point.photo?[44,44]:[30,30],iconAnchor:point.photo?[22,44]:[15,15]});
+      const label = visits.length>1 ? visits.map(p => p.number).join('·') : point.number;
+      const icon = L.divIcon({className:'trip-pin-wrap',html:`<div class="trip-pin ${point.photo?'photo-pin':''}" style="--pin-color:${point.color}">${point.photo?`<img src="${escape(point.photo)}" alt="">`:''}<span>${label}</span></div>`,iconSize:point.photo?[50,50]:[30,30],iconAnchor:point.photo?[25,50]:[15,15]});
       const marker = L.marker([point.latitude,point.longitude],{icon,title:point.title,keyboard:true}).bindPopup(popup(point),{maxWidth:265});
       marker.on('click',() => { if (point.hub) { location.hash='day-'+point.day; } else focusPoint(point,true); });
       if (!point.hub) marker.bindTooltip(escape(point.title));
       if (point.hub) {
-        const left = ['wulingyuan','guilin','suzhou','shanghai'].includes(point.key);
+        const left = ['wulingyuan','shanghai'].includes(point.key);
         const lower = ['zjjcity','yangshuo'].includes(point.key);
         marker.bindTooltip(escape(point.title), {permanent:true,direction:left?'left':'right',offset:left?[-18,point.key==='shanghai'?16:-24]:[18,lower?9:-8],className:'hub-label',opacity:1});
       }
@@ -116,6 +118,5 @@
     next();
   });
   window.addEventListener('hashchange',()=>{wholeTrip=!selectedDay();render();});
-  window.addEventListener('choicechange',()=>{if(selectedDay()?.id==='14'){wholeTrip=false;render();}});
   render();
 })();
