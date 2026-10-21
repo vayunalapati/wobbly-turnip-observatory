@@ -45,7 +45,7 @@
       "title": "Hong Kong, from lanes to lights",
       "area": "Central · Sheung Wan · the Peak · Kowloon",
       "overnight": "Hong Kong",
-      "photo": "photos/hong-kong.jpg",
+      "photo": "photos/peak.jpg",
       "color": "#a64c35",
       "intro": "A full day for the city: neighborhood lanes, views from the Peak, and the harbor after dark. Keep meals and coffee stops spontaneous.",
       "note": "Keep the morning neighborhood walk short if Peak queues are long. Tomorrow stays in Hong Kong, so there is no train departure to rush back for.",
@@ -143,7 +143,8 @@
           "title": "Central, slowly",
           "description": "Start with breakfast and a short walk through Central, keeping the first morning manageable after last night’s arrival.",
           "key": "central",
-          "point_id": "14-1-central"
+          "point_id": "14-1-central",
+          "photo": "photos/central.jpg"
         },
         {
           "id": "stop-14-2",
@@ -151,7 +152,8 @@
           "title": "Sheung Wan lanes",
           "description": "Continue into Sheung Wan for neighborhood lanes and a coffee before heading to the Peak.",
           "key": "sheung",
-          "point_id": "14-2-sheung"
+          "point_id": "14-2-sheung",
+          "photo": "photos/sheung.jpg"
         },
         {
           "id": "stop-14-3",
@@ -159,7 +161,8 @@
           "title": "Victoria Peak",
           "description": "Go up for the view, allowing room for queues. Shorten the earlier walk if you would rather spend more time here.",
           "key": "peak",
-          "point_id": "14-3-peak"
+          "point_id": "14-3-peak",
+          "photo": "photos/peak.jpg"
         },
         {
           "id": "stop-14-4",
@@ -167,7 +170,8 @@
           "title": "Kowloon & a food crawl",
           "description": "Cross to Kowloon and explore Mong Kok. Graze as you go, with flexible food stops rather than reservations.",
           "key": "kowloon",
-          "point_id": "14-4-kowloon"
+          "point_id": "14-4-kowloon",
+          "photo": "photos/kowloon.jpg"
         },
         {
           "id": "stop-14-5",
@@ -175,7 +179,8 @@
           "title": "Tsim Sha Tsui waterfront",
           "description": "Walk the harborfront for the skyline before a ferry crossing.",
           "key": "tst",
-          "point_id": "14-5-tst"
+          "point_id": "14-5-tst",
+          "photo": "photos/tst.jpg"
         },
         {
           "id": "stop-14-6",
@@ -183,7 +188,8 @@
           "title": "Harbor lights & the Star Ferry",
           "description": "Cross from Tsim Sha Tsui to Central for skyline views from the water, then return to your hotel at your own pace.",
           "key": "ferry",
-          "point_id": "14-6-ferry"
+          "point_id": "14-6-ferry",
+          "photo": "photos/ferry.jpg"
         }
       ]
     },
@@ -193,7 +199,7 @@
       "title": "The greener side of Hong Kong",
       "area": "Dragon’s Back → Shek O",
       "overnight": "Hong Kong",
-      "photo": "photos/hike.jpg",
+      "photo": "photos/sheko.jpg",
       "color": "#a64c35",
       "intro": "With a second full Hong Kong day, there is room for both the city and the coast. Walk the Dragon’s Back ridge, then slow down in Shek O.",
       "note": "Use the hiking day for clear, dry weather. Swap Nov 14 and 15 locally if conditions favor it. After dinner, pack for the next morning’s train.",
@@ -235,7 +241,8 @@
           "title": "Dragon’s Back",
           "description": "Travel to the trailhead and enjoy the ridge walk. Choose your exact trail variant and transport after checking the weather. The pin marks the ridge area, not a trailhead or GPS track.",
           "key": "dragon",
-          "point_id": "15-7-dragon"
+          "point_id": "15-7-dragon",
+          "photo": "photos/dragon.jpg"
         },
         {
           "id": "stop-15-8",
@@ -243,14 +250,16 @@
           "title": "Shek O beach & village",
           "description": "After the hike, transfer to Shek O for a relaxed beach and village afternoon before returning to the city.",
           "key": "sheko",
-          "point_id": "15-8-sheko"
+          "point_id": "15-8-sheko",
+          "photo": "photos/sheko.jpg"
         },
         {
           "id": "stop-15-9",
           "time": "Optional evening",
           "title": "A harbor evening, if you have energy",
           "description": "Once back in the city, add a waterfront walk or Star Ferry crossing only if you feel like it. Otherwise have dinner near your hotel and pack for tomorrow’s train.",
-          "key": null
+          "key": null,
+          "photo": "photos/hong-kong.jpg"
         }
       ]
     },
@@ -316,7 +325,8 @@
           "title": "Train from Hong Kong West Kowloon",
           "description": "Book the service to Guilin West once sales open. Confirm the departure time and allow the station’s required check-in and border-processing buffer.",
           "key": "kowloonrail",
-          "point_id": "16-1-kowloonrail"
+          "point_id": "16-1-kowloonrail",
+          "photo": "photos/kowloonrail.jpg"
         },
         {
           "id": "stop-16-2",
@@ -324,7 +334,8 @@
           "title": "Guilin West → Yangshuo",
           "description": "Meet your prearranged driver at Guilin West and transfer directly to your Yangshuo accommodation.",
           "key": "guilin",
-          "point_id": "16-2-guilin"
+          "point_id": "16-2-guilin",
+          "photo": "photos/guilin.jpg"
         },
         {
           "id": "stop-16-3",
@@ -332,7 +343,8 @@
           "title": "A gentle countryside introduction",
           "description": "After check-in, take a short walk or easy bike ride near your accommodation. This pin is Yangshuo town; choose the actual route with your hotel.",
           "key": "yangshuo",
-          "point_id": "16-3-yangshuo"
+          "point_id": "16-3-yangshuo",
+          "photo": "photos/yangshuo-town.jpg"
         }
       ]
     },
@@ -412,7 +424,8 @@
           "title": "Cycle the Yulong River countryside",
           "description": "Rent bikes and explore quiet village roads. Choose a loop that suits your hotel location and riding comfort.",
           "key": "yulong",
-          "point_id": "17-1-yulong"
+          "point_id": "17-1-yulong",
+          "photo": "photos/yulong.jpg"
         },
         {
           "id": "stop-17-2",
@@ -428,7 +441,8 @@
           "title": "Jiuxian village & bamboo rafting",
           "description": "Spend time around Jiuxian, then take a bamboo raft ride on an available Yulong River section. The pin marks the village, not a booked raft pier.",
           "key": "jiuxian",
-          "point_id": "17-3-jiuxian"
+          "point_id": "17-3-jiuxian",
+          "photo": "photos/jiuxian.jpg"
         },
         {
           "id": "stop-17-4",
@@ -502,7 +516,8 @@
           "title": "Meet your driver at Zhangjiajie West",
           "description": "Have the driver track your actual arrival and agree a meeting point before traveling.",
           "key": "zjjwest",
-          "point_id": "18-3-zjjwest"
+          "point_id": "18-3-zjjwest",
+          "photo": "photos/zjjwest.jpg"
         },
         {
           "id": "stop-18-4",
@@ -590,7 +605,8 @@
           "title": "Enter from the Wulingyuan side",
           "description": "Head to the forest park early with your entry and internal transport plan ready. The pin marks the Wulingyuan base area.",
           "key": "wulingyuan",
-          "point_id": "19-1-wulingyuan"
+          "point_id": "19-1-wulingyuan",
+          "photo": "photos/wulingyuan.jpg"
         },
         {
           "id": "stop-19-2",
@@ -598,7 +614,8 @@
           "title": "Yuanjiajie: the Avatar mountains",
           "description": "Explore the pillar viewpoints and walking paths, allowing time to pause rather than racing between platforms.",
           "key": "yuanjiajie",
-          "point_id": "19-2-yuanjiajie"
+          "point_id": "19-2-yuanjiajie",
+          "photo": "photos/yuanjiajie.jpg"
         },
         {
           "id": "stop-19-3",
@@ -606,7 +623,8 @@
           "title": "Tianzi Mountain",
           "description": "Continue to Tianzi Mountain for a different perspective on the forest of stone peaks.",
           "key": "tianzi",
-          "point_id": "19-3-tianzi"
+          "point_id": "19-3-tianzi",
+          "photo": "photos/tianzi.jpg"
         },
         {
           "id": "stop-19-4",
@@ -624,7 +642,7 @@
       "title": "Down in the forest",
       "area": "Golden Whip Stream + Huangshizhai",
       "overnight": "Wulingyuan",
-      "photo": "photos/zhangjiajie.jpg",
+      "photo": "photos/huangshi.jpg",
       "color": "#6c6d98",
       "intro": "A stream-level walk and another panorama, then back to the same Wulingyuan hotel. There is no hotel change tonight.",
       "note": "Agree the park exit and return pickup with your hotel. Pack tonight and arrange tomorrow’s early car, Tianmen entry, luggage storage and airport transfer.",
@@ -680,7 +698,8 @@
           "title": "Golden Whip Stream",
           "description": "Follow a manageable section of the stream-side path. The marker indicates the stream area; choose the exact start and finish locally.",
           "key": "golden",
-          "point_id": "20-1-golden"
+          "point_id": "20-1-golden",
+          "photo": "photos/golden.jpg"
         },
         {
           "id": "stop-20-2",
@@ -688,7 +707,8 @@
           "title": "Huangshizhai",
           "description": "Head to Huangshizhai for another panorama, choosing walking or cableway arrangements to match your energy and conditions.",
           "key": "huangshi",
-          "point_id": "20-2-huangshi"
+          "point_id": "20-2-huangshi",
+          "photo": "photos/huangshi.jpg"
         },
         {
           "id": "stop-20-3",
@@ -770,7 +790,8 @@
           "title": "Tianmen Mountain · Route C",
           "description": "The current operator notice keeps Route C open while the main cableway is suspended for renovation. It uses the Tianmen Cave Express cableway and mountain escalators. Allow a generous half-day, with a firm finish time set by your flight.",
           "key": "tianmen",
-          "point_id": "21-2-tianmen"
+          "point_id": "21-2-tianmen",
+          "photo": "photos/tianmen.jpg"
         },
         {
           "id": "stop-21-3",
@@ -778,7 +799,8 @@
           "title": "Lunch, luggage & airport transfer",
           "description": "Arrange luggage storage or a transfer provider’s luggage service in advance. Collect bags near Zhangjiajie city and continue to the airport; avoid a return to Wulingyuan. This pin marks the city, not a confirmed storage location.",
           "key": "zjjcity",
-          "point_id": "21-3-zjjcity"
+          "point_id": "21-3-zjjcity",
+          "photo": "photos/zjjcity.jpg"
         },
         {
           "id": "stop-21-4",
@@ -858,7 +880,8 @@
           "title": "Yu Garden",
           "description": "After a slower start, visit the garden before its afternoon last-entry cutoff. Leave time for the surrounding old-city lanes.",
           "key": "yugarden",
-          "point_id": "22-1-yugarden"
+          "point_id": "22-1-yugarden",
+          "photo": "photos/yugarden.jpg"
         },
         {
           "id": "stop-22-2",
@@ -873,7 +896,8 @@
           "title": "Pudong riverfront",
           "description": "Head to Lujiazui and walk by the river for a view back across the Huangpu.",
           "key": "pudong",
-          "point_id": "22-3-pudong"
+          "point_id": "22-3-pudong",
+          "photo": "photos/pudong.jpg"
         },
         {
           "id": "stop-22-4",
@@ -881,7 +905,8 @@
           "title": "An observation deck",
           "description": "Shanghai Tower is a possible deck choice, subject to tickets and visibility. Skip it if you prefer to stay outdoors.",
           "key": "tower",
-          "point_id": "22-4-tower"
+          "point_id": "22-4-tower",
+          "photo": "photos/tower.jpg"
         }
       ]
     },
@@ -891,7 +916,7 @@
       "title": "Leafy streets & a Bund farewell",
       "area": "Fuxing Park → Wukang & Anfu → the Bund",
       "overnight": "Shanghai",
-      "photo": "photos/shanghai.jpg",
+      "photo": "photos/wukang.jpg",
       "color": "#a35c65",
       "intro": "A full day for Fuxing Park, tree-lined streets and café breaks, with a final skyline walk along the Bund after dark.",
       "note": "Take a taxi or metro between the neighborhood walk and the Bund. Enjoy a final Shanghai evening, then pack for tomorrow’s departure.",
@@ -969,7 +994,8 @@
           "title": "Wukang Road",
           "description": "Walk the tree-lined streets and pause whenever something catches your eye.",
           "key": "wukang",
-          "point_id": "23-2-wukang"
+          "point_id": "23-2-wukang",
+          "photo": "photos/wukang.jpg"
         },
         {
           "id": "stop-23-3",
@@ -977,7 +1003,8 @@
           "title": "Anfu Road",
           "description": "Continue the neighborhood wandering, with time for shops, coffee and a late lunch.",
           "key": "anfu",
-          "point_id": "23-3-anfu"
+          "point_id": "23-3-anfu",
+          "photo": "photos/anfu.jpg"
         },
         {
           "id": "stop-23-4",
@@ -985,7 +1012,8 @@
           "title": "The Bund",
           "description": "Finish with the classic riverfront skyline walk.",
           "key": "bund",
-          "point_id": "23-4-bund"
+          "point_id": "23-4-bund",
+          "photo": "photos/bund.jpg"
         }
       ]
     },

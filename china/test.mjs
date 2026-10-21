@@ -38,7 +38,10 @@ assert.equal(trip.days.at(-1).points.length,0,'unknown hotel and airport must no
 for(const leg of trip.legs){assert(trip.hubs.some(h=>h.key===leg.from));assert(trip.hubs.some(h=>h.key===leg.to));assert(['rail','car','flight'].includes(leg.mode));}
 assert.equal(trip.legs.find(l=>l.mode==='flight').date,'Nov 21');
 assert(trip.legs.find(l=>l.mode==='flight').label.includes('unconfirmed'));
-for(const photo of JSON.parse(read('photo-credits.json'))){assert(photo.source.startsWith('https://commons.wikimedia.org/'));assert(photo.license_url);assert(html.includes(photo.source));}
+// Photos are shown without credits, so each one must carry a license that needs no attribution.
+const photoSources=new Map(JSON.parse(read('photo-sources.json')).map(photo=>[photo.file,photo]));
+const usedPhotos=new Set([...trip.days.flatMap(d=>[d.photo,...d.stops.map(s=>s.photo)]),...trip.stays.map(s=>s.photo),...trip.hubs.map(h=>h.photo)].filter(Boolean));
+for(const file of usedPhotos){assert(existsSync(new URL(file,import.meta.url)),file);assert(['CC0','Public domain'].includes(photoSources.get(file)?.license),`${file} needs a CC0 or public-domain source`);}
 console.log('Trip checks passed: 12 days, 11 nights, 4 stays, two full HK days, one Wulingyuan hotel and Sunday Yu Garden.');
 // A CDN failure must leave usable content and disable only map controls.
 const elements=new Map();

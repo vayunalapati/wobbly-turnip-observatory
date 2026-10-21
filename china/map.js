@@ -6,6 +6,7 @@
   const allButton = document.getElementById('map-all');
   const playButton = document.getElementById('play-route');
   const fitButton = document.getElementById('fit-trip');
+  const stopPhotos = new Map(trip.days.flatMap(day => day.stops.filter(stop => stop.photo).map(stop => [stop.id,stop.photo])));
   const points = trip.days.flatMap(day => day.points.map(point => ({...point, color:day.color})));
   const escape = value => String(value ?? '').replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -24,24 +25,53 @@
     document.querySelectorAll('.locate-stop').forEach(button => { button.hidden = true; });
     return;
   }
-  const map = L.map(container,{scrollWheelZoom:false}).setView([28,115],5);
-  const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+  const map = L.map(container,{scrollWheelZoom:false,zoomControl:false}).setView([28,115],5);
+  L.control.zoom({position:'bottomleft'}).addTo(map);
+  const esri = 'https://server.arcgisonline.com/ArcGIS/rest/services/';
+  const esriCredit = 'Tiles &copy; Esri, Maxar, Earthstar Geographics';
+  // Satellite reads well at trip scale and shows the karst and sandstone terrain; OSM keeps the most street detail.
+  const basemaps = {
+    'Satellite': L.layerGroup([
+      L.tileLayer(esri + 'World_Imagery/MapServer/tile/{z}/{y}/{x}',{maxZoom:18,attribution:esriCredit}),
+      L.tileLayer(esri + 'Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:18})
+    ]),
+    'Street map': L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'})
+  };
+  basemaps['Satellite'].addTo(map);
+  L.control.layers(basemaps,null,{position:'topright'}).addTo(map);
   const layers = L.layerGroup().addTo(map);
   let tileError = false;
-  tiles.on('tileerror', () => { if (!tileError) { tileError = true; status.textContent += ' · some map tiles unavailable; use place links'; } });
+  map.on('tileerror', () => { if (!tileError) { tileError = true; status.textContent += ' · some map tiles unavailable; use place links'; } });
+  let fitWhenSized = false;
+  new ResizeObserver(() => { map.invalidateSize({animate:false}); if (fitWhenSized) fit(); }).observe(container);
   function stopPreview() {
     clearTimeout(timer); playing = false;
     playButton.textContent = wholeTrip ? '▶ Preview route' : '▶ Preview stops';
     playButton.setAttribute('aria-pressed','false');
+    document.querySelectorAll('.map-previewing').forEach(row => row.classList.remove('map-previewing'));
+  }
+  // The city a day without mapped stops belongs to, so arrival and departure days still show where they are.
+  function cityHub(day) {
+    const stay = trip.stays.findLast(stay => Number(stay.dates.match(/\d+/)[0]) <= Number(day.id));
+    return trip.hubs.find(hub => hub.key === stay.key);
   }
   function fit() {
+    // Fitting a hidden or unsized map picks the maximum zoom, so wait for a real size.
+    const size = map.getSize();
+    fitWhenSized = size.x < 100 || size.y < 100;
+    if (fitWhenSized) return;
     if (activePoints.length) map.fitBounds(activePoints.map(p => [p.latitude,p.longitude]),{padding:[45,45],maxZoom:15,animate:false});
-    else map.setView(selectedDay()?.id==='13'?[22.282,114.16]:[31.2304,121.4737],11,{animate:false});
+    else { const hub = cityHub(selectedDay()); map.setView([hub.latitude,hub.longitude],11,{animate:false}); }
   }
   function popup(point) {
     if (point.hub) return `${point.photo ? `<img class="popup-photo" src="${escape(point.photo)}" alt="">` : ''}<div class="trip-popup"><span class="label">THE JOURNEY</span><h3>${escape(point.title)}</h3><p>${escape(point.subtitle)}</p><a href="#day-${point.day}">Open this day ↗</a></div>`;
-    return `<div class="trip-popup"><span class="label">NOV ${escape(point.day)} · ${escape(point.time)}</span><h3>${escape(point.title)}</h3><p>${escape(point.local_name)}</p><p>Approximate landmark / area pin. Use the place listing to plan your actual route.</p><a href="${escape(point.maps_url)}" target="_blank" rel="noopener noreferrer">Open place in Maps ↗</a></div>`;
+    const photo = stopPhotos.get(point.row_id);
+    return `${photo ? `<img class="popup-photo" src="${escape(photo)}" alt="">` : ''}<div class="trip-popup"><span class="label">NOV ${escape(point.day)} · ${escape(point.time)}</span><h3>${escape(point.title)}</h3><p>${escape(point.local_name)}</p><p>Approximate landmark / area pin. Use the place listing to plan your actual route.</p><a href="${escape(point.maps_url)}" target="_blank" rel="noopener noreferrer">Open place in Maps ↗</a><button type="button" class="popup-back" data-row="${escape(point.row_id)}">Back to the plan ↓</button></div>`;
   }
+  container.addEventListener('click', event => {
+    const back = event.target.closest('.popup-back');
+    if (back) document.getElementById(back.dataset.row)?.scrollIntoView({block:'center',behavior:'instant'});
+  });
   function highlight(point, scroll) {
     document.querySelectorAll('.map-selected').forEach(row => row.classList.remove('map-selected'));
     const row = document.getElementById(point.row_id);
@@ -61,6 +91,7 @@
     activePoints = wholeTrip ? trip.hubs.filter(p => !p.transit).map((p,i) => ({...p,hub:true,id:'hub-'+p.key,number:i+1,color:'#3d6654'})) : day.points.map(p => ({...p,color:day.color}));
     layers.clearLayers(); markers = new Map();
     dayButton.disabled = !day;
+    dayButton.closest('.segmented').hidden = !day;
     dayButton.setAttribute('aria-pressed',String(!wholeTrip));
     allButton.setAttribute('aria-pressed',String(wholeTrip));
     document.getElementById('map-title').textContent = wholeTrip ? 'Follow the journey.' : day.title;
@@ -78,7 +109,12 @@
         L.circleMarker([hub.latitude,hub.longitude],{radius:4,color:'#fff',weight:2,fillColor:'#7b8177',fillOpacity:1}).bindTooltip(escape(hub.title+' · transfer point')).addTo(layers);
       }
     } else if (activePoints.length > 1) {
-      L.polyline(activePoints.map(p => [p.latitude,p.longitude]),{color:day.color,weight:3,opacity:.7,dashArray:'5 8'}).addTo(layers);
+      L.polyline(activePoints.map(p => [p.latitude,p.longitude]),{color:'#fff',weight:6,opacity:.8}).addTo(layers);
+      L.polyline(activePoints.map(p => [p.latitude,p.longitude]),{color:day.color,weight:3,opacity:1,dashArray:'5 8'}).addTo(layers);
+    } else if (!activePoints.length) {
+      const hub = cityHub(day);
+      const icon = L.divIcon({className:'trip-pin-wrap',html:`<div class="trip-pin photo-pin" style="--pin-color:${day.color}"><img src="${escape(hub.photo)}" alt=""></div>`,iconSize:[50,50],iconAnchor:[25,50]});
+      L.marker([hub.latitude,hub.longitude],{icon,title:hub.title,keyboard:false}).bindTooltip(escape(hub.title),{permanent:true,direction:'right',offset:[18,-24],className:'hub-label',opacity:1}).addTo(layers);
     }
     const groups = new Map();
     activePoints.forEach(p => {const key=p.latitude+','+p.longitude; if (!groups.has(key)) groups.set(key,[]); groups.get(key).push(p);});
@@ -114,7 +150,7 @@
     if(!stops.length)return;
     playing=true;playButton.textContent='■ Stop preview';playButton.setAttribute('aria-pressed','true');
     let index=0;
-    function next(){if(!playing)return;const point=stops[index++];if(!point){stopPreview();return;}map.flyTo([point.latitude,point.longitude],wholeTrip?9:14,{animate:!reducedMotion,duration:reducedMotion?0:1.2});markers.get(point.id)?.openPopup();timer=setTimeout(next,2600);}
+    function next(){if(!playing)return;const point=stops[index++];if(!point){stopPreview();return;}map.flyTo([point.latitude,point.longitude],wholeTrip?9:14,{animate:!reducedMotion,duration:reducedMotion?0:1.2});markers.get(point.id)?.openPopup();document.querySelectorAll('.map-previewing').forEach(row=>row.classList.remove('map-previewing'));document.getElementById(point.row_id)?.classList.add('map-previewing');timer=setTimeout(next,2600);}
     next();
   });
   window.addEventListener('hashchange',()=>{wholeTrip=!selectedDay();render();});
